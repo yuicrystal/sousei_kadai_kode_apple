@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+ <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+   
+  <script>
+   
+      function start () {
+          var num=Math.floor(Math.random() * 5)+1;
+          var date=new Date();
+          var mh =date.getMonth();
+        /*if(tp >25){
+           num=num+5;
+        }else if(tp<15){
+            num=num+10;
+        }*/
+        if(mh>=10 || mh<=2)
+           num=num+10;
+        else if(mh>7)
+           num=num+5;
+        switch (num) {
+        case 1:
+          document.getElementById("print").src = "images/code_1.PNG" ;
+          break;
+        case 2:
+          document.getElementById("print").src = "images/code_2.PNG" ;
+          break;
+        case 3:
+          document.getElementById("print").src = "images/code_3.PNG" ;
+          break;
+        case 4:
+          document.getElementById("print").src = "images/code_4.PNG" ;
+          break;
+        case 5:
+          document.getElementById("print").src = "images/code_5.PNG" ;
+          break;
+        case 6:
+          document.getElementById("print").src = "images/code_6.PNG" ;
+          break;
+        case 7:
+          document.getElementById("print").src = "images/code_7.PNG" ;
+          break;
+        case 8:
+          document.getElementById("print").src = "images/code_8.PNG" ;
+          break;
+        case 9:
+          document.getElementById("print").src = "images/code_9.PNG" ;
+          break;
+        case 10:
+          document.getElementById("print").src = "images/code_10.PNG" ;
+          break;
+        case 11:
+          document.getElementById("print").src = "images/code_11.PNG" ;
+          break;
+        case 12:
+          document.getElementById("print").src = "images/code_12.PNG" ;
+          break;
+        case 13:
+          document.getElementById("print").src = "images/code_13.PNG" ;
+          break;
+        case 14:
+          document.getElementById("print").src = "images/code_14.PNG" ;
+          break;
+        case 15:
+          document.getElementById("print").src = "images/code_15.PNG" ;
+          break;
+        default:
+          break;
+      }
+      
+            
+          document.getElementById("start_wh").style["display"] = "none";
+          document.getElementById("select_text").style["display"] = "none";
+          document.getElementById("city_select").style["display"] = "none";
+          document.getElementById("title").style["display"] = "none";
+          //document.getElementById("print").src = "images/kasa.png" ;
+          document.getElementById("print").style["display"] = "block";          
+      }
+    </script>
+    <style>
+        body {
+            background-image: url("images/mokume_1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #title {
+            position: absolute;
+            top: 30px;
+            width: 100%;
+        }
+        #start_wh {
+            position: absolute;
+            bottom: 130px;
+            width: 100%;
+        }
+        #city_select {
+            position: absolute;
+            bottom: 300px;
+            width: 100%;
+        }
+        #select_text {
+            position: absolute;
+            bottom: 350px;
+            width: 100%;
+        }
+        #icon {
+            position: absolute;
+            top: 50px;
+        }
+        #print {
+            position: absolute;
+            bottom: 90px;
+            top: 150px;
+            left:  50px;
+            width: 70%;
+            
+        }
+    </style>
+</head>
+
+<title>AngularJS TIPS</title>
+</head>
+<body ng-controller="MyController">
+<div id=city_select>
+<form>
+  <select ng-model="city" width="100" height="100">
+    <option value="1850147">東京</option>
+    <option value="1856057">名古屋</option>
+    <option value="1853909">大阪</option>
+    <option value="1907125">福岡</option>
+  </select>
+ 
+</form>
+</div>
+<style>
+    .weather{
+        position: absolute;
+        top: 30px;
+        left: 10px;
+    }
+    .temp{
+        font-size: 20px;
+        position: absolute;
+        top: 80px;
+        left: 100px;
+    }
+    .name{
+        font-size: 20px;
+        position: absolute;
+        top: 50px;
+        left: 100px;
+    }
+    .temp_min{
+        font-size: 20px;
+        position: absolute;
+        top: 50px;
+        left: 200px;
+    }
+    .temp_max{
+        style.color="white";
+        font-size: 20px;
+        position: absolute;
+        top: 80px;
+        left: 200px;
+    }  
+</style>
+<div class="weather">
+<img ng-src="{{weather}}" width="100" height="100"/>
+</div>
+<div class="name">{{name}}</div>
+<div class="temp">{{temp}}</div>
+<div class="temp_min">{{temp_min}}</div>
+<div class="temp_max">{{temp_max}}</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script>
+angular.module('myApp', [])
+  .controller('MyController', ['$scope', '$http', function($scope, $http) {
+    $scope.onclick = function() {
+      $http.jsonp('http://api.openweathermap.org/data/2.5/weather?units=metric',
+        {
+          params: {
+            callback: 'JSON_CALLBACK',  // 1コールバック関数の名前
+            id: $scope.city,            // 都市コード
+            APPID: '9d8aee7e0d555ecc2713a61da16be356'  // アプリケーションキー
+          }
+        }
+      )
+      // 2Web APIの結果に基づいて天気アイコンを表示
+      .success(function(data) {
+        $scope.weather = 'http://openweathermap.org/img/w/'
+          + data.weather[0].icon +'.png';
+        $scope.name = data.weather[0].main; 
+        $scope.temp = data.main.temp +'℃';
+         $scope.temp_min = '最低気温  '+data.main.temp_min +'℃';
+          $scope.temp_max = '最高気温  '+data.main.temp_max +'℃';
+      })
+      .error(function(err) {
+        console.log(err);
+      });
+    };
+  }]);
+</script>
+    <br />
+    <div id=select_text>
+     <img src="images/select_txt.png" alt="Choose a city">
+     </div>
+    <div id=start_wh>
+      <img src="images/start.png" alt="START" ng-click="onclick()" onclick="start()">
+    </div>
+    <div id="title">
+      <img src="images/title.png" alt="title" >
+    </div>  
+    <img id="print" style="display:none">
+     
+</body>
+</html>
