@@ -19,11 +19,7 @@
           var num=Math.floor(Math.random() * 5)+1;
           var date=new Date();
           var mh =date.getMonth();
-        /*if(tp >25){
-           num=num+5;
-        }else if(tp<15){
-            num=num+10;
-        }*/
+
         if(mh>=10 || mh<=2)
            num=num+10;
         else if(mh>7)
@@ -83,7 +79,6 @@
           document.getElementById("select_text").style["display"] = "none";
           document.getElementById("city_select").style["display"] = "none";
           document.getElementById("title").style["display"] = "none";
-          //document.getElementById("print").src = "images/kasa.png" ;
           document.getElementById("print").style["display"] = "block";          
       }
     </script>
